@@ -18,7 +18,7 @@ public class Robot {
 	private Rangefinder rangefinder = new Rangefinder();
 
 
-	public void update(){
+	public void update() {
 		accumulator.update();
 		drivetrain.update();
 		shooter.update();
@@ -32,7 +32,7 @@ public class Robot {
 		rangefinder.init();
 	}
 
-	public void disable(){
+	public void disable() {
 		drivetrain.disable();
 		shooter.disable();
 		accumulator.disable();

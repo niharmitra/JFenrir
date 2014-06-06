@@ -37,7 +37,7 @@ public class Accumulator extends Subsystem {
 	public void update() {
 		switch(state) {
 		case IDLE:
-			setAllVics(0.0);
+			accuVic.set(0.0);
 			break;
 		case ACCUMULATING:
 			accuVic.set(-1.0);
@@ -46,10 +46,6 @@ public class Accumulator extends Subsystem {
 			accuVic.set(1.0);
 			break;
 		}
-	}
-
-	private void setAllVics(double spd) {
-		accuVic.set(spd);
 	}
 
 	public static class AccumulateCommand extends RobotCommand {
