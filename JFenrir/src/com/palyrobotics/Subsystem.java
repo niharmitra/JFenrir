@@ -11,12 +11,12 @@ public abstract class Subsystem {
 	 * Initialize the subsystem.
 	 */
 	public void init() {}
-	
+
 	/**
 	 * Disable the subsystem.
 	 */
 	public void disable() {}
-	
+
 	/**
 	 * Update the subsystem.
 	 */

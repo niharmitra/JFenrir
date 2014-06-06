@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.Encoder.PIDSourceParameter;
  * @author Nihar Mitra
  */
 public class Drivetrain extends Subsystem {
-	
+
 	// Victors
 	private Victor leftFrontVic;
 	private Victor leftBackVic;
@@ -41,14 +41,14 @@ public class Drivetrain extends Subsystem {
 	// For testing what?
 	private double prevLeftDist;
 	private double prevRightDist;
-	
+
 	//Enum for the states
 	private int state;
 	public final static int IDLE = 0;
 	public final static int AUTO_DRIVING = 1;
 	public final static int TELE_DRIVING = 2;
 	public final static int DRIVE_DIST = 3;
-	
+
 	public void init() {
 		//Reset Encoders
 		rightEnc.reset();
@@ -65,14 +65,14 @@ public class Drivetrain extends Subsystem {
 		leftEnc.setDistancePerPulse(.0813);
 		rightEnc.setPIDSourceParameter(PIDSourceParameter.kDistance);
 		leftEnc.setPIDSourceParameter(PIDSourceParameter.kDistance);
-		
+
 		state = IDLE;
 	}
 
 	public void disable() {
 		state = IDLE;
 	}
-	
+
 	public void update() {
 		switch (state) {
 		case TELE_DRIVING:
@@ -99,12 +99,12 @@ public class Drivetrain extends Subsystem {
 		targetSpeed = spd;
 		state = TELE_DRIVING;
 	}
-	
+
 	private void rotateS(double speed) {
 		rotateSpeed = speed;
 		state = TELE_DRIVING;
 	}
-	
+
 	private void driveDist(double dist) {
 		leftEnc.reset();
 		rightEnc.reset();
@@ -120,7 +120,7 @@ public class Drivetrain extends Subsystem {
 		rightFrontController.enable();
 		leftBackController.enable();
 		rightBackController.enable();
-		
+
 		state = DRIVE_DIST;
 	}
 
@@ -130,45 +130,45 @@ public class Drivetrain extends Subsystem {
 		rightFrontVic.set(spd);
 		rightBackVic.set(spd);
 	}
-	
+
 	public static abstract class DrivetrainCommand extends RobotCommand {
 		protected final double arg;
-		
+
 		public DrivetrainCommand(double speed) {
 			this.arg = speed;
 			subsystemType = RobotCommand.DRIVETRAIN;
 		}
-		
+
 	}
-	
+
 	public static class SetSpeedCommand extends DrivetrainCommand {
-		
+
 		public SetSpeedCommand(double speed) {
 			super(speed);
 		}
-		
+
 		public void execute(Drivetrain drivetrain) {
 			// Set the speed of the victors to the variable speed
 			drivetrain.setSpeed(arg);
 		}
 	}
-	
+
 	public static class SetRotateCommand extends DrivetrainCommand {
-		
+
 		public SetRotateCommand(double speed) {
 			super(speed);
 		}
-		
+
 		public void execute(Drivetrain drivetrain) {
 			drivetrain.rotateS(arg);
 		}
 	}
 	public static class DriveDistCommand extends DrivetrainCommand {
-		
+
 		public DriveDistCommand(double dist) {
 			super(dist);
 		}
-		
+
 		public void execute(Drivetrain drivetrain) {
 			drivetrain.driveDist(arg);
 		}
